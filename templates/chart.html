@@ -1,0 +1,29 @@
+<div id="my-chart">
+  <table class="charts-css line show-heading show-data-axes show-primary-axis show-4-secondary-axes">
+    <caption> PM2.5 and PM10 Readings over time </caption>
+
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Time</th>
+        <th scope="col">PM2.5</th>
+        <th scope="col">PM10</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {{ range . }}
+      <tr>
+        <th scope="row">{{ .ID }}</th>
+        <th scope="row">{{ .CreatedAt }}</th>
+        <td style="--size: calc({{.PM25}}/100);">{{ .PM25 }}</td>
+        <td style="--size: calc({{.PM10}}/100);">{{ .PM10 }}</td>
+      </tr>
+      {{ end }}
+    </tbody>
+  </table>
+  <ul class="charts-css legend">
+    <li>PM2.5</li>
+    <li>PM10</li>
+  </ul>
+</div>

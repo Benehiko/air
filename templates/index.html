@@ -13,12 +13,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
   <script src="/static/js/htmx.min.js"></script>
   <link rel="stylesheet" href="/static/css/charts.min.css" />
-  <title>SDS011</title>
+  <title>Air Dashboard</title>
 </head>
 
 <body>
-  <main class="container mx-auto">
-    <div hx-get="/data" hx-trigger="load"></div>
+  <main class="container mx-auto pt-4">
+    <div class="flex flex-col items-center justify-center">
+      <div hx-get="/data" hx-trigger="load" hx-target="#chart"></div>
+      <div id="chart"></div>
+
+      <div hx-get="/data-options" hx-trigger="load"></div>
+    </div>
   </main>
 </body>
 

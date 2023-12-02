@@ -1,10 +1,18 @@
 <div id="my-chart">
-  <table class="charts-css line show-heading show-data-axes show-primary-axis show-4-secondary-axes">
-    <caption> PM2.5 and PM10 Readings over time </caption>
+  <table id="my-chart-data"
+    class="charts-css column data-outside datasets-spacing-4 multiple show-data-axes show-heading show-labels show-primary-axis show-4-secondary-axes">
+    <caption class="font-medium text-lg leading-5"> PM2.5 and PM10 Readings from
+      {{ with mustFirst . }}
+      <b>{{ .CreatedAt.Format "2006-01-02T15:04:05 UTC" }}</b>
+      {{ end }}
+      to
+      {{ with mustLast . }}
+      <b>{{ .CreatedAt.Format "2006-01-02T15:04:05 UTC" }}</b>
+      {{ end }}
+    </caption>
 
     <thead>
       <tr>
-        <th scope="col">ID</th>
         <th scope="col">Time</th>
         <th scope="col">PM2.5</th>
         <th scope="col">PM10</th>
@@ -14,16 +22,62 @@
     <tbody>
       {{ range . }}
       <tr>
-        <th scope="row">{{ .ID }}</th>
-        <th scope="row">{{ .CreatedAt }}</th>
-        <td style="--size: calc({{.PM25}}/100);">{{ .PM25 }}</td>
-        <td style="--size: calc({{.PM10}}/100);">{{ .PM10 }}</td>
+        <th scope="row" {{ with mod .ID 2 }}{{ if ne . 0 }} class="hide-label" {{ end }} {{end}}>{{ .CreatedAt.Format
+          "2006-01-02T15:04:05 UTC" }}</th>
+        <td style="--size: calc({{- .PM25 -}}/100);">
+          <span class="data">{{- .PM25 -}} </span>
+          <span class="tooltip"> {{- .PM25 -}}&nbsp;({{- .CreatedAt.Format "Jan _2 15:04:05" -}})</span>
+        </td>
+        <td style="--size: calc({{- .PM10 -}}/100);">
+          <span class="data">{{- .PM10 -}}</span>
+          <span class="tooltip"> {{- .PM10 -}}&nbsp;({{- .CreatedAt.Format "Jan _2 15:04:05" -}})</span>
+        </td>
       </tr>
       {{ end }}
     </tbody>
   </table>
-  <ul class="charts-css legend">
+  <ul class="charts-css legend levent-inline legend-square">
     <li>PM2.5</li>
     <li>PM10</li>
   </ul>
+  <style>
+    #my-chart {
+      width: 100%;
+      max-width: 300px;
+    }
+
+    #my-chart-data {
+      overflow-x: scroll;
+    }
+
+
+    @media screen and (min-width: 640px) {
+      #my-chart {
+        max-width: 400px;
+      }
+    }
+
+    @media screen and (min-width: 768px) {
+      #my-chart {
+        max-width: 600px;
+      }
+    }
+
+    @media screen and (min-width: 1024px) {
+      #my-chart {
+        max-width: 900px;
+      }
+    }
+
+    @media screen and (min-width: 1280px) {
+      #my-chart {
+        max-width: 1200px;
+      }
+    }
+
+    #my-chart .column {
+      --labels-size: 4rem;
+      --labels-align-block: start;
+    }
+  </style>
 </div>

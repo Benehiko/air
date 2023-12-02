@@ -1,0 +1,15 @@
+<form hx-get="/data" action="/data" method="get" hx-target="#chart">
+  <label for="options">Start time</label>
+  <select name="start">
+    {{ range . }}
+    <option value="{{ . }}">{{ . }}</option>
+    {{ end }}
+  </select>
+  <label for="options">End time</label>
+  <select name="end">
+    {{ range . }}
+    <option value="{{ . }}">{{ . }}</option>
+    {{ end }}
+  </select>
+  <button type="submit" value="Submit">Submit</button>
+</form>

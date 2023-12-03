@@ -8,6 +8,7 @@ require (
 	github.com/gorilla/mux v1.8.1
 	github.com/ory/x v0.0.605
 	github.com/phayes/freeport v0.0.0-20220201140144-74d24b5ae9f5
+	github.com/spf13/cobra v1.8.0
 	github.com/urfave/negroni v1.0.0
 	go.etcd.io/bbolt v1.3.8
 	go.uber.org/zap v1.26.0
@@ -26,7 +27,6 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/shopspring/decimal v1.3.1 // indirect
 	github.com/spf13/cast v1.6.0 // indirect
-	github.com/spf13/cobra v1.8.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	golang.org/x/crypto v0.16.0 // indirect

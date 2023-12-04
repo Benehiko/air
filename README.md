@@ -29,9 +29,7 @@ Learn more about udev rules [here](https://wiki.archlinux.org/title/Udev).
 
 ```sh
 sudo vi /etc/udev/rules.d/10-pm-sensor.rules
-```
-
-```
+...
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", MODE="0660", TAG+="uaccess"
 ```
 
@@ -79,11 +77,11 @@ will provide you with useful information regarding errors.
 ./air all --port 4444
 ```
 
-Navigate to https://localhost:4444
+Navigate to <https://localhost:4444>
 
 You should now see a dashboard.
 
-If no `--port` flag is specified, the software will 
+If no `--port` flag is specified, the software will
 attempt to bind to a random free port.
 The port will be printed in the logs.
 
@@ -111,6 +109,13 @@ but it seems to do the job.
 ![back right fan](./docs/back-right-fan.jpg)
 ![back left fan](./docs/back-left-fan.jpg)
 
+---
+
+To update tailwindcss you can configure the `tailwind.config.cjs` file and the
+`tailwind.css` file.
+
+After updating it, run `npm i && go generate`
+
 ## Troubleshooting
 
 The program won't connect to the sensor with code -3.
@@ -118,8 +123,9 @@ The program won't connect to the sensor with code -3.
 ```sh
 panic: Could not execute root command: Could not open a device: libusb: bad access [code -3]
 ```
+
 Try updating your udev rules. Also ensure that the usb device
-shows up on your system. 
+shows up on your system.
 
 You can check connected USB devices through `lsusb`.
 
@@ -141,7 +147,6 @@ A strange go error regarding `gousb` types being undefined etc.
 
 Install `libusb` and reinstall the gousb package.
 
-
 ## Aknowledgements
 
 While searching for ways to improve my indoor air quality, I stumbled upon
@@ -153,5 +158,7 @@ As for air quality monitoring, I wanted something I could plug into a RaspberryP
 and just have run 24/7. I got some insightful information from [Jeff Geerling](https://www.jeffgeerling.com/blog/2021/airgradient-diy-air-quality-monitor-co2-pm25)
 and [Alan Byrne](https://youtu.be/dxVUxYIrawU).
 
-Ultimately I chose to get the SDS011 which is affordable and can be interacted
-without the need for another propriatary App.
+Ultimately I chose to get the Nova PM sensor (SDS011) which is affordable
+and can be interacted without the need for another propriatary App.
+
+Special thanks to this Python script for getting me started [JanX2](https://gist.github.com/JanX2/87ac6ccef5f56bba4a3f055ab2b4e6e9)

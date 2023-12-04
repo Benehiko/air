@@ -227,7 +227,7 @@ func webHandler(ctx context.Context, cmd *cobra.Command, log *zap.SugaredLogger)
 			b := tx.Bucket([]byte("airquality"))
 			c := b.Cursor()
 
-			startTime := time.Now().UTC().Add(-1 * time.Hour)
+			startTime := time.Now().UTC().Add(-15 * time.Minute)
 			endTime := time.Now().UTC()
 
 			start := r.URL.Query().Get("start")

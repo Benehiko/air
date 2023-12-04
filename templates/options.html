@@ -1,15 +1,42 @@
 <form hx-get="/data" action="/data" method="get" hx-target="#chart">
-  <label for="options">Start time</label>
-  <select name="start">
-    {{ range . }}
-    <option value="{{ . }}">{{ . }}</option>
-    {{ end }}
-  </select>
-  <label for="options">End time</label>
-  <select name="end">
-    {{ range . }}
-    <option value="{{ . }}">{{ . }}</option>
-    {{ end }}
-  </select>
-  <button type="submit" value="Submit">Submit</button>
+  <label for="start">Start time</label>
+  <input type="datetime-local" id="start">
+
+  <label for="end">End time</label>
+  <input type="datetime-local" id="end">
+
+  <input type="hidden" id="start-value" name="start" />
+  <input type="hidden" id="end-value" name="end" />
+
+  <button class="border-2 border-sky-500" type="submit" value="Submit">Submit</button>
 </form>
+
+<script>
+  const start = document.getElementById("start")
+  const end = document.getElementById("end")
+
+  const latest = new Date("{{ mustLast .}}")
+  const oldest = new Date("{{ mustFirst .}}")
+
+  start.value = new Date(latest.getTime() - 1000 * 60 * 15).toISOString().slice(0, -8)
+  start.min = oldest.toISOString().slice(0, -8)
+  start.max = new Date(latest.getTime() - 1000 * 60).toISOString().slice(0, -8)
+
+  end.value = latest.toISOString().slice(0, -8)
+  end.min = oldest.toISOString().slice(0, -8)
+  end.max = latest.toISOString().slice(0, -8)
+
+  const startValue = document.getElementById("start-value")
+  const endValue = document.getElementById("end-value")
+
+  startValue.value = new Date(start.value).toISOString()
+  endValue.value = new Date(end.value).toISOString()
+
+  start.onchange = function () {
+    startValue.value = new Date(start.value).toISOString()
+  }
+
+  end.onchange = function () {
+    endValue.value = new Date(end.value).toISOString()
+  }
+</script>

@@ -1,7 +1,7 @@
 <div id="my-chart">
   <table id="my-chart-data"
-    class="charts-css column data-outside datasets-spacing-4 multiple show-data-axes show-heading show-labels show-primary-axis show-4-secondary-axes">
-    <caption class="font-medium text-lg leading-5"> PM2.5 and PM10 Readings from
+    class="charts-css column data-outside datasets-spacing-4 multiple labels-align-inline-start hide-data show-data-axes show-heading show-labels show-primary-axis show-4-secondary-axes">
+    <caption class="font-medium text-lg leading-5"> PM2.5 and PM10 Readings in µg/m³ (micrograms per cubic meters) from
       {{ with mustFirst . }}
       <b>{{ .CreatedAt.Format "2006-01-02T15:04:05 UTC" }}</b>
       {{ end }}
@@ -22,15 +22,16 @@
     <tbody>
       {{ range . }}
       <tr>
-        <th scope="row" {{ with mod .ID 2 }}{{ if ne . 0 }} class="hide-label" {{ end }} {{end}}>{{ .CreatedAt.Format
-          "2006-01-02T15:04:05 UTC" }}</th>
-        <td style="--size: calc({{- .PM25 -}}/100);">
+        <th scope="row" class="text-sm {{ with mod .ID 2 }}{{ if ne . 0 }} hide-label {{ end }} {{end}}">{{
+          .CreatedAt.Format
+          "15:04:05" }}</th>
+        <td {{ if gt .PM25 .PM10 }} class="opacity-50" {{ end }} style="--size: calc({{- .PM25 -}}/30);">
           <span class="data">{{- .PM25 -}} </span>
-          <span class="tooltip"> {{- .PM25 -}}&nbsp;({{- .CreatedAt.Format "Jan _2 15:04:05" -}})</span>
+          <span class="tooltip"> {{- .PM25 -}}µg/m³&nbsp;({{- .CreatedAt.Format "Jan _2 15:04:05" -}})</span>
         </td>
-        <td style="--size: calc({{- .PM10 -}}/100);">
+        <td {{ if gt .PM25 .PM10 }} class="opacity-50" {{ end }} style="--size: calc({{- .PM10 -}}/30);">
           <span class="data">{{- .PM10 -}}</span>
-          <span class="tooltip"> {{- .PM10 -}}&nbsp;({{- .CreatedAt.Format "Jan _2 15:04:05" -}})</span>
+          <span class="tooltip"> {{- .PM10 -}}µg/m³&nbsp;({{- .CreatedAt.Format "Jan _2 15:04:05" -}})</span>
         </td>
       </tr>
       {{ end }}
@@ -40,6 +41,7 @@
     <li>PM2.5</li>
     <li>PM10</li>
   </ul>
+
   <style>
     #my-chart {
       width: 100%;
@@ -77,7 +79,6 @@
 
     #my-chart .column {
       --labels-size: 4rem;
-      --labels-align-block: start;
     }
   </style>
 </div>
